@@ -1,0 +1,29 @@
+{
+  "name": "blazing-bookkeeper-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "index.js",
+    "generate-docs": "apidoc -i ./ -o public/docs/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danschultzer/balzing-bookkeeper-server.git"
+  },
+  "author": "Dan Schultzer <dan@dreamconception.com>",
+  "license": "MIT",
+  "dependencies": {
+    "apidoc": "0.16.1",
+    "express": "4.14.0",
+    "gridfs-stream": "1.1.1",
+    "mongoose": "4.6.3",
+    "multer": "1.2.0",
+    "node-uuid": "1.4.7",
+    "passport": "0.3.2",
+    "passport-github2": "0.1.10",
+    "passport-http-bearer": "1.0.1",
+    "request": "2.75.0"
+  }
+}
