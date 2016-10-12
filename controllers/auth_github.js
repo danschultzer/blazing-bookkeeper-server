@@ -63,7 +63,7 @@ module.exports = function () {
 
     function hasRepo(profile, cb) {
       var options = {
-        url: profile._json.repos_url,
+        url: "https://api.github.com/repos/danschultzer/blazing-bookkeeper/contributors",
         headers: {
           'User-Agent': 'Blazing Bookkeeper Server'
         },
@@ -79,14 +79,14 @@ module.exports = function () {
         var isMember = false;
 
         for(var i = 0; i < json.length; i++) {
-          if (json[i].full_name == 'danschultzer/blazing-bookkeeper') {
+          if (json[i].id == profile.id) {
             isMember = true;
             break;
           }
         }
 
         if (!isMember)
-          return cb(new Error("Not member of danschultzer/blazing-bookkeeper"));
+          return cb(new Error("Not contributor for danschultzer/blazing-bookkeeper"));
 
       cb();
     });
