@@ -17,6 +17,7 @@
   "dependencies": {
     "apidoc": "0.16.1",
     "express": "4.14.0",
+    "express-rate-limit": "2.5.0",
     "gridfs-stream": "1.1.1",
     "mongoose": "4.6.3",
     "multer": "1.2.0",
