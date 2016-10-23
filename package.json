@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "index.js",
+    "start-dev": "nodemon",
     "generate-docs": "apidoc -i ./ -o public/docs/"
   },
   "repository": {
@@ -25,6 +26,10 @@
     "passport": "0.3.2",
     "passport-github2": "0.1.10",
     "passport-http-bearer": "1.0.1",
+    "receipt-scanner": "0.3.0",
     "request": "2.75.0"
+  },
+  "devDependencies": {
+    "nodemon": "1.11.0"
   }
 }

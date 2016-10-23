@@ -12,8 +12,8 @@
   radial-gradient(black 15%, transparent 16%) 8px 8px,
   radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
   radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
-  background-color:#282828;
-  background-size:16px 16px;
+  background-color: #282828;
+  background-size: 16px 16px;
   padding: 8rem 0 7rem;
   text-align: center;
   overflow: hidden;
@@ -40,6 +40,18 @@
   margin-top: -20px;
 }
 
+.hero .button-secondary {
+  height: auto;
+  font-size: 10px;
+  background: #fff;
+}
+.hero .button-secondary span {
+  display: block;
+  color: #ededed;
+  font-size: 9px;
+  margin-top: -20px;
+}
+
 .screencast {
   width: 80%;
   text-align: center;
@@ -58,12 +70,15 @@
 @media (min-width: 550px) {
   .hero {
     padding-bottom: 12rem;
-    text-align: left;
     height: 165px;
   }
 
   .section.hero {
     padding: 12rem 0 11rem;
+  }
+
+  .section.hero .button {
+    width: 297px;
   }
 
   .hero-heading {
@@ -123,7 +138,79 @@
 
   .hero .screenshot {
     top: -16rem;
-    margin-left:3rem;
+    margin-left: 3rem;
     max-height: 615px;
   }
+}
+
+
+.receipt-window-container {
+  position: relative;
+  padding: 20px;
+  text-align: center;
+  height: 200px;
+}
+
+.receipt-window-container::after {
+  content: '';
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgba(255,255,255,0) 70%, rgba(255,255,255,0) 100%);
+}
+
+.hero .button {
+  display: inline-block;
+}
+
+.upload-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-button input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.online-demo form {
+  margin: 0;
+}
+
+.online-demo .button {
+  margin: 0;
+  text-align: center;
+  display: block;
+  left: 50%;
+  margin-left: -69px;
+  position: relative;
+}
+
+.online-demo .receipt-window-container:hover .cell span.alert span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: rgba(255, 255, 0, 0.25);
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #000;
+  word-wrap: break-word;
+  overflow: hidden;
+  white-space: normal;
+  text-align: left;
+  z-index: 99;
+  line-height: 10px;
+  font-size: 10px;
 }

@@ -19,6 +19,7 @@ module.exports = function (db, cb) {
   authenticate = require('./middlewares/api_auth.js')();
   app.use('/api/v1', require('./controllers/api_breakpad')(db, authenticate));
   app.use('/api/v1', require('./controllers/api_bug_report')(db, authenticate));
+  app.use('/api/v1', require('./controllers/api_receipt')(db, authenticate));
 
   // Static assets handling
   app.use(express.static(path.join(__dirname, 'public')));
