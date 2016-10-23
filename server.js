@@ -1,16 +1,25 @@
 module.exports = function (db, cb) {
   var express = require('express'),
-    path = require('path');
+    path = require('path'),
+    RateLimit = require('express-rate-limit');
 
   var app = express();
 
   // Github admin authorization
   app.use('/', require('./controllers/auth_github')());
 
+  // Throttle API requests
+  var apiLimiter = new RateLimit({
+    windowMs: 15*60*1000,
+    max: 100
+  });
+  app.use('/api/', apiLimiter);
+
   // API
   authenticate = require('./middlewares/api_auth.js')();
   app.use('/api/v1', require('./controllers/api_breakpad')(db, authenticate));
   app.use('/api/v1', require('./controllers/api_bug_report')(db, authenticate));
+  app.use('/api/v1', require('./controllers/api_receipt')(db, authenticate));
 
   // Static assets handling
   app.use(express.static(path.join(__dirname, 'public')));

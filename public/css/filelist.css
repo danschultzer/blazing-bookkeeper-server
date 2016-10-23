@@ -1,0 +1,152 @@
+:root {
+
+/*Submenu*/
+  --submenu-bg: rgb(240, 240, 240);
+  --submenu-black-text: rgb(37, 37, 37);
+  --submenu-border-buttom: rgb(192, 192, 192);
+
+/*Table*/
+  --table-grey-bg: rgb(240, 240, 240);
+  --table-border-bottom: rgb(173, 173, 173);
+
+/*Table Body*/
+  --table-body-white-bg: rgb(255, 255, 255);
+  --table-body-grey-bg: rgb(245, 245, 245);
+
+
+/*Row*/
+  --row-height: 23px;
+  --double-row-height: 46px;
+  --row-black-text: rgb(36, 36, 36);
+  --row-grey-text: rgb(128, 128, 128);
+  --row-white-bg: rgb(255, 255, 255);
+  --row-gray-bg: rgb(245, 245, 245);
+  --row-white-border: rgb(255, 255, 255);
+  --row-grey-border-color: rgb(245, 245, 245);
+}
+
+.window {
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid rgb(147, 147, 147);
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  font-family: system, -apple-system, ".SFNSDisplay-Regular", "Helvetica Neue", Helvetica, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #333;
+  background-color: transparent;
+}
+
+.window .table {
+  margin: 0;
+  padding: 0;
+}
+
+.window .table {
+  width: 100%;
+}
+.window header.titlebar {
+  width: 100%;
+  text-align: center;
+  color: rgb(60, 60, 60);
+  font-weight: 400;
+  font-size: 12px;
+  margin: 0;
+}
+
+.window .table .head {
+  position: absolute;
+  width: 100%;
+  background-color: var(--table-grey-bg);
+  height: 46px;
+  overflow: none;
+}
+
+.window .table .head .cell {
+  color: var(--submenu-black-text);
+}
+
+.window .table .head header.titlebar {
+  margin-bottom: 0;
+}
+
+.window .row {
+  display: flex;
+  border-bottom: 1px solid var(--submenu-border-bottom);
+  justify-content: end;
+  flex-flow: row;
+}
+
+.window .cell {
+  padding: 3px 12px;
+
+  flex: 1 1 auto;
+
+  text-align: left;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.window .cell:last-child {
+  text-align: right;
+}
+
+.window .table .cell:nth-of-type(1) {
+  width: 100%;
+}
+.window .table .cell:nth-of-type(2),
+.window .table .cell:nth-of-type(3),
+.window .table .cell:nth-of-type(4) {
+  width: 200px;
+}
+
+.window .table .cell:nth-of-type(4) progress {
+  width: 100%;
+}
+
+.window .head .row {
+  background-color: var(--submenu-bg);
+  border-bottom: 1px solid var(--submenu-border-buttom);
+}
+
+.window .table .body {
+  position: fixed;
+  position: absolute;
+  top: 46px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  background: linear-gradient(0deg,
+    var(--table-body-white-bg),
+    var(--table-body-white-bg) 24px,
+    var(--table-body-grey-bg) 23px,
+    var(--table-body-grey-bg) 46px
+);
+  background-size: 100% var(--double-row-height);
+
+}
+
+.window .table .body .row {
+  background: var(--row-white-bg);
+  height: var(--row-height);
+  border-bottom: 1px solid var(--row-white-border);
+}
+
+.window .table .body .row:nth-of-type(odd) {
+  background: var(--row-gray-bg);
+}
+
+.window .table .body .cell:nth-of-type(1) {
+  color: var(--row-black-text);
+}
+.window .table .body .cell:nth-of-type(2),
+.window .table .body .cell:nth-of-type(3),
+.window .table .body .cell:nth-of-type(4) {
+  color: var(--row-grey-text);
+}

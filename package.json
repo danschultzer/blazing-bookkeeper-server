@@ -6,17 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "index.js",
+    "start-dev": "nodemon",
     "generate-docs": "apidoc -i ./ -o public/docs/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/danschultzer/balzing-bookkeeper-server.git"
+    "url": "https://github.com/danschultzer/blazing-bookkeeper-server.git"
   },
   "author": "Dan Schultzer <dan@dreamconception.com>",
   "license": "MIT",
   "dependencies": {
     "apidoc": "0.16.1",
     "express": "4.14.0",
+    "express-rate-limit": "2.5.0",
     "gridfs-stream": "1.1.1",
     "mongoose": "4.6.3",
     "multer": "1.2.0",
@@ -24,6 +26,10 @@
     "passport": "0.3.2",
     "passport-github2": "0.1.10",
     "passport-http-bearer": "1.0.1",
+    "receipt-scanner": "0.3.0",
     "request": "2.75.0"
+  },
+  "devDependencies": {
+    "nodemon": "1.11.0"
   }
 }
