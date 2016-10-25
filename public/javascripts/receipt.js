@@ -111,10 +111,10 @@ var SmoothScrolling = {
 
         var destination_y = destination_element.getBoundingClientRect().top + window.pageYOffset;
         var tween_distance = SmoothScrolling.tween_distance;
-        var interval = 'SmoothScrolling.scrollViewport('
-                     + tween_distance + ', '
-                     + destination_y + ', '
-                     + '\'' + destination_hash + '\')';
+        var interval = 'SmoothScrolling.scrollViewport(' +
+                      tween_distance + ', ' +
+                      destination_y + ', ' +
+                      '\'' + destination_hash + '\')';
         SmoothScrolling.last_event_interval = setInterval(interval, 10);
 
         event.preventDefault();
@@ -137,4 +137,4 @@ var SmoothScrolling = {
             location.hash = destination_hash;
         }
     }
-}
+};
