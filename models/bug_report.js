@@ -30,9 +30,8 @@ bugReportSchema.pre('save', function(next) {
 });
 
 bugReportSchema.post('save', function(report) {
-  console.log(bugReportSchema);
   var notify = require('../helpers/notification');
-  notify('Bug Report', 'Bug', bugReportSchema.index.created_at, bugReportSchema.index.file, bugReportSchema.index._id);
+  notify('Bug Report', 'Bug', this.created_at, this.file, '/bug-reports/', this._id);
 });
 
 var BugReport = mongoose.model('BugReport', bugReportSchema);

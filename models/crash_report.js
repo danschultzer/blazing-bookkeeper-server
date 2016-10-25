@@ -26,9 +26,8 @@ crashReportSchema.pre('save', function(next) {
 });
 
 crashReportSchema.post('save', function(report) {
-  console.log(crashReportSchema);
   var notify = require('../helpers/notification');
-  notify('Crash Report', 'Crash', crashReportSchema.index.created_at, crashReportSchema.index.file, crashReportSchema.index._id);
+  notify('Crash Report', 'Crash', this.created_at, this.file, '/crash-reports/', this._id);
 });
 
 

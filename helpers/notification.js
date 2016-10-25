@@ -1,4 +1,4 @@
-module.exports = function(subject, type, date, file, id) {
+module.exports = function(subject, type, date, file, path, id) {
   var nodemailer = require('nodemailer');
   var smtpTransport = require('nodemailer-smtp-transport');
   var markdown = require('nodemailer-markdown').markdown;
@@ -15,10 +15,10 @@ module.exports = function(subject, type, date, file, id) {
       from: process.env.NODEMAILER_SENDER,
       to: process.env.NODEMAILER_RECEIVER,
       subject: subject,
-      markdown: '## Report: ' + type + '\n' + '-' + '\n' +
+      markdown: '## Report: ' + type + '\n' + '---' + '\n' +
                 '- Date: ' + date + '\n' +
-                '- File: ' + '`' + file + '`' + '\n' + '-' + '\n' +
-                '### Report ' + '[' + id + '](' + id + ')'
+                '- File: ' + '`' + file + '`' + '\n' + '---' + '\n' +
+                '### Report ' + '[' + id + '](https://blazingbookkeeper.com' + path + id + ')'
   };
 
   transporter.use('compile', markdown());
