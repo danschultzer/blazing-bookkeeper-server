@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    notify = require('../helpers/send_report_to_admins');
+
 
 var crashReportSchema = new Schema({
     product   : { type: String, required: true },
@@ -26,8 +28,7 @@ crashReportSchema.pre('save', function(next) {
 });
 
 crashReportSchema.post('save', function(report) {
-  var notify = require('../helpers/notification');
-  notify('Crash Report', 'Crash', this.created_at, this.file, '/crash-reports/', this._id);
+  notify('Crash');
 });
 
 
