@@ -73,6 +73,23 @@ module.exports = function (db, authenticate) {
   });
 
   /**
+   * @api {get} /crash-report/:id Return crash report
+   * @apiName GetCrashReport
+   * @apiGroup CrashReport
+   *
+   * @apiSuccess {Id}
+   */
+  router.get('/crash-report/:id', authenticate, function(req, res, next) {
+    CrashReport.findOne({ _id: req.params.id }, function(error, report) {
+      if (error)
+        return next(error);
+
+      res.send(report);
+      res.end();
+    });
+  });
+
+  /**
    * @api {get} /crash-report/:id/file Return minidump for crash report
    * @apiName GetCrashReportFile
    * @apiGroup CrashReport

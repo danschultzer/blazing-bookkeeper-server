@@ -28,7 +28,7 @@ module.exports = function(type) {
 
     var message = '';
     reports.forEach(function(report) {
-      var url = `https://blazingbookkeeper.com/api/v1/${type == 'Bug' ? 'bug' : 'crash'}-report/${this._id}`;
+      var url = `https://blazingbookkeeper.com/api/v1/${type == 'Bug' ? 'bug' : 'crash'}-report/${report._id}`;
 
       message += `### Report: ${type} \n` +
                  `- Date: ${report.created_at} \n` +

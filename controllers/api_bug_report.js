@@ -82,6 +82,23 @@ module.exports = function (db, authenticate) {
     });
 
   /**
+   * @api {get} /bug-report/:id Return document
+   * @apiName GetBugReport
+   * @apiGroup BugReport
+   *
+   * @apiSuccess {Id}
+   */
+  router.get('/bug-reports/:id', authenticate, function(req, res, next) {
+    BugReport.findOne({ _id: req.params.id }, function(error, report) {
+      if (error)
+        return next(error);
+
+      res.send(report);
+      res.end();
+    });
+  });
+
+  /**
    * @api {get} /bug-report/:id/file Return document
    * @apiName GetBugReportFile
    * @apiGroup BugReport
