@@ -5,6 +5,7 @@ module.exports = function(type) {
   Admin = require('../models/admin'),
   BugReport = require('../models/bug_report'),
   CrashReport = require('../models/crash_report');
+  var emails
 
   return new Promise((function(resolve, reject) {
     Admin.find(function(error, admins) {
