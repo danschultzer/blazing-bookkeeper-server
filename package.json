@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "index.js",
-    "start-dev": "nodemon",
+    "start-dev": "npm run start-dev:mongodb & npm run start-dev:nodemon",
+    "start-dev:nodemon": "nodemon",
+    "start-dev:mongodb": "mongod --dbpath ./data",
     "generate-docs": "apidoc -i ./ -o public/docs/"
   },
   "repository": {

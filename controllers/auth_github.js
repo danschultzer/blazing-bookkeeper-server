@@ -18,8 +18,8 @@ module.exports = function () {
     });
 
     passport.use(new Strategy({
-        clientID: process.env.GITHUB_CLIENT_ID,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        clientID: process.env.GITHUB_CLIENT_ID || 'clientID',
+        clientSecret: process.env.GITHUB_CLIENT_SECRET || 'clientSecret',
         callbackURL: process.env.GITHUB_CALLBACK_URL || "http://localhost:5000/auth/github/callback"
       },
       function(access_token, refresh_token, profile, cb) {
