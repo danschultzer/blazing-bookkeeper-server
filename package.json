@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec --recursive",
+    "test": "./node_modules/.bin/mocha --reporter spec --recursive && standard",
     "start": "index.js",
     "start-dev": "npm run start-dev:mongodb & npm run start-dev:nodemon",
     "start-dev:nodemon": "nodemon",
@@ -38,6 +38,7 @@
     "chai": "^3.5.0",
     "mocha": "^3.1.2",
     "mockgoose": "^6.0.8",
-    "nodemon": "1.11.0"
+    "nodemon": "1.11.0",
+    "standard": "^8.5.0"
   }
 }
