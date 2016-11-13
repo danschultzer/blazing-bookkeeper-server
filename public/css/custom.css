@@ -40,6 +40,11 @@
   margin-top: -20px;
 }
 
+
+.hero .button-primary span {
+  text-transform: none;
+}
+
 .hero .button-secondary {
   height: auto;
   font-size: 10px;
