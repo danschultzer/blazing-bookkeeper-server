@@ -1,11 +1,12 @@
 module.exports = function (type) {
   var nodemailer = require('nodemailer')
-  var smtpTransport = require('nodemailer-smtp-transport')
   var markdown = require('nodemailer-markdown').markdown
+  var smtpTransporter = require('../config/transporter')
   var Admin = require('../models/admin')
   var BugReport = require('../models/bug_report')
   var CrashReport = require('../models/crash_report')
   var emails
+  
   return new Promise(function (resolve, reject) {
     Admin.find(function (error, admins) {
       if (error) {
@@ -44,13 +45,7 @@ module.exports = function (type) {
       markdown: message
     }
 
-    var transporter = nodemailer.createTransport(smtpTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-      }
-    }))
+    var transporter = nodemailer.createTransport(smtpTransporter)
 
     transporter.use('compile', markdown())
     transporter.sendMail(opts, function (error, info) {
