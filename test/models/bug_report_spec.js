@@ -1,22 +1,16 @@
 /* eslint-env mocha */
-var assert = require('chai').assert
-var nodemailer = require('nodemailer')
-var StubTransporter = require('../stub_transporter')()
-var BugReport = require('../../models/bug_report.js')
 require('../spec_helper')
+var assert = require('chai').assert
+var BugReport = require('../../models/bug_report.js')
+var StubTransporter = require('../stub_transporter')
 
-describe('Bug report', function () {
-  before(function (done) {
-    var transporter = nodemailer.createTransport(StubTransporter)
-    transporter.sendMail()
-    done()
-  })
-
-  it('should send an email', function (done) {
+describe('Bug report', function (done) {
+  it('should send an email', function () {
     var newReport = BugReport({
       product: 'foo',
       version: 'bar'
     })
+    assert.equal(StubTransporter.queue.length, 0)
 
     newReport.save(function (error) {
       assert.equal(error, null)

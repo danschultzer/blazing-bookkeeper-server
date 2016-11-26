@@ -1,7 +1,5 @@
 // https://github.com/andris9/nodemailer-stub-transport
-module.exports = function () {
-  return new StubTransport()
-}
+module.exports = new StubTransport()
 
 function StubTransport () {
   this.queue = []
