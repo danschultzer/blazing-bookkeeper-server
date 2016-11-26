@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var crashReportSchema = new Schema({
-    product   : { type: String, requred: true },
+    product   : { type: String, required: true },
     version   : { type: String, required: true },
     sender    : Object,
     fields    : Object,
