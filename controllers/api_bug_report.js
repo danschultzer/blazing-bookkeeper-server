@@ -55,6 +55,32 @@ module.exports = function (db, authenticate) {
       }
   });
 
+    /**
+     * @api {get} /bug-reports List bug reports
+     * @apiName GetCrashReports
+     * @apiGroup CrashReport
+     *
+     * @apiSuccess {Array} list
+     * @apiSuccess {Integer} count
+     */
+    router.get('/bug-reports', authenticate, function(req, res, next) {
+      BugReport.find(function(error, reports) {
+        if (error)
+          return next(error);
+
+        var list = reports.reduce(function(list, item) {
+          list[item._id] = item;
+          return list;
+        }, {});
+
+        res.send({
+          "list": list,
+          "count": list.length
+        });
+        res.end();
+      });
+    });
+
   /**
    * @api {get} /bug-report/:id/file Return document
    * @apiName GetBugReportFile
@@ -76,32 +102,6 @@ module.exports = function (db, authenticate) {
       });
 
       readStream.pipe(res);
-    });
-  });
-
-  /**
-   * @api {get} /bug-reports List bug reports
-   * @apiName GetCrashReports
-   * @apiGroup CrashReport
-   *
-   * @apiSuccess {Array} list
-   * @apiSuccess {Integer} count
-   */
-  router.get('/bug-reports', authenticate, function(req, res, next) {
-    BugReport.find(function(error, reports) {
-      if (error)
-        return next(error);
-
-      var list = reports.reduce(function(list, item) {
-        list[item._id] = item;
-        return list;
-      }, {});
-
-      res.send({
-        "list": list,
-        "count": list.length
-      });
-      res.end();
     });
   });
 
