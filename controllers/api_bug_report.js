@@ -1,4 +1,4 @@
-module.exports = function (db, authenticate) {
+module.exports = function (authenticate) {
   var express = require('express'),
     router = express.Router(),
     uuid = require('node-uuid'),
@@ -8,8 +8,8 @@ module.exports = function (db, authenticate) {
     upload = multer({ dest: '/tmp/bug-reporter-uploads' }),
     BugReport = require('../models/bug_report');
 
-  Grid.mongo = db.mongo;
-  var gfs = Grid(db.connection.db);
+  Grid.mongo = global.config.db.mongo;
+  var gfs = Grid(global.config.db.connection.db);
 
   /**
    * @api {post} /bug-report Create bug report
@@ -88,7 +88,7 @@ module.exports = function (db, authenticate) {
    *
    * @apiSuccess {Id}
    */
-  router.get('/bug-reports/:id', authenticate, function(req, res, next) {
+  router.get('/bug-report/:id', authenticate, function(req, res, next) {
     BugReport.findOne({ _id: req.params.id }, function(error, report) {
       if (error)
         return next(error);
@@ -105,7 +105,7 @@ module.exports = function (db, authenticate) {
    *
    * @apiSuccess {File}
    */
-  router.get('/bug-reports/:id/file', authenticate, function(req, res, next) {
+  router.get('/bug-report/:id/file', authenticate, function(req, res, next) {
     BugReport.findOne({ _id: req.params.id }, function(error, report) {
       if (error)
         return next(error);

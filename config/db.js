@@ -1,6 +1,6 @@
-module.exports = function (config) {
+module.exports = function (dbname, hostname) {
   var mongoose = require('mongoose');
-  mongoose.connect('mongodb://localhost/' + config.dbname || 'blazing-bookkeeper');
+  mongoose.connect('mongodb://' + hostname + '/' + dbname || 'blazing-bookkeeper');
 
   return mongoose;
 };

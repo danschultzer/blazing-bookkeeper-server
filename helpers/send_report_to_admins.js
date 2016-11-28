@@ -1,12 +1,11 @@
 module.exports = function (type) {
   var nodemailer = require('nodemailer')
   var markdown = require('nodemailer-markdown').markdown
-  var smtpTransporter = require('../config/transporter')
   var Admin = require('../models/admin')
   var BugReport = require('../models/bug_report')
   var CrashReport = require('../models/crash_report')
   var emails
-  
+
   return new Promise(function (resolve, reject) {
     Admin.find(function (error, admins) {
       if (error) {
@@ -45,7 +44,7 @@ module.exports = function (type) {
       markdown: message
     }
 
-    var transporter = nodemailer.createTransport(smtpTransporter)
+    var transporter = nodemailer.createTransport(global.config.smtpTransporter)
 
     transporter.use('compile', markdown())
     transporter.sendMail(opts, function (error, info) {

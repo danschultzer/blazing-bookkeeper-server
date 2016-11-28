@@ -1,19 +1,22 @@
 /* eslint-env mocha */
-var proxyquire = require('proxyquire')
 var mockgoose = require('mockgoose')
 var mongoose = require('mongoose')
-var StubTransporter = require('./stub_transporter')
+global.StubSmtpTransporter = require('./stub_smtp_transporter')
 
-beforeEach(function (done) {
-  proxyquire('../helpers/send_report_to_admins', { '../config/transporter': StubTransporter })
+before(function (done) {
   mockgoose(mongoose).then(function () {
-    mongoose.connect('mongodb://localhost/test-db')
+    require('../config/config')('test-db', 'example.org');
+    global.config.smtpTransporter = global.StubSmtpTransporter
+    done()
   })
-  done()
 })
 
-after(function (done) {
+afterEach(function (done) {
   mockgoose.reset(function () {
     done()
   })
+})
+
+beforeEach(function () {
+  global.StubSmtpTransporter.reset()
 })

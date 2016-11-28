@@ -1,6 +1,4 @@
 var config = require('./config/config')();
-var db = require('./config/db')(config);
 
-require('./server')(db, function (app) {
-  app.listen(process.env.PORT || config.port, 'localhost');
-});
+var app = require('./server')();
+app.listen(process.env.PORT || config.port, 'localhost');

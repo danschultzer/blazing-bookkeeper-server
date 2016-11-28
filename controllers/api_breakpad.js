@@ -1,4 +1,4 @@
-module.exports = function (db, authenticate) {
+module.exports = function (authenticate) {
   var express = require('express'),
     router = express.Router(),
     uuid = require('node-uuid'),
@@ -8,8 +8,8 @@ module.exports = function (db, authenticate) {
     upload = multer({ dest: '/tmp/crash-reporter-uploads' }),
     CrashReport = require('../models/crash_report');
 
-  Grid.mongo = db.mongo;
-  var gfs = Grid(db.connection.db);
+  Grid.mongo = global.config.db.mongo;
+  var gfs = Grid(global.config.db.connection.db);
 
   /**
    * @api {post} /crash-report Create crash report

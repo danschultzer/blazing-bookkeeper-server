@@ -1,4 +1,4 @@
-module.exports = function (db) {
+module.exports = function () {
   var express = require('express'),
     router = express.Router(),
     multer = require('multer'),

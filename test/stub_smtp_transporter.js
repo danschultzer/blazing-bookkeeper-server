@@ -8,3 +8,7 @@ function StubTransport () {
 StubTransport.prototype.send = function (mail) {
   this.queue.push(mail)
 }
+
+StubTransport.prototype.reset = function () {
+  this.queue = []
+}
