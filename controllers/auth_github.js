@@ -76,14 +76,14 @@ module.exports = function () {
         return cb(error)
       }
 
-      if (response.statusCode != 200) {
+      if (response.statusCode !== 200) {
         return cb(new Error('Invalid response'))
       }
 
       var isMember = false
 
       for (var i = 0; i < json.length; i++) {
-        if (json[i].id == profile.id) {
+        if (json[i].id === profile.id) {
           isMember = true
           break
         }
@@ -112,7 +112,7 @@ module.exports = function () {
         return cb(error)
       }
 
-      if (response.statusCode != 200) {
+      if (response.statusCode !== 200) {
         return cb(new Error('Invalid response'))
       }
 
