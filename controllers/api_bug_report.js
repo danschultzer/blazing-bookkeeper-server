@@ -1,12 +1,12 @@
 module.exports = function (authenticate) {
-  var express = require('express'),
-    router = express.Router(),
-    uuid = require('node-uuid'),
-    Grid = require('gridfs-stream'),
-    fs = require('fs'),
-    multer = require('multer'),
-    upload = multer({ dest: '/tmp/bug-reporter-uploads' }),
-    BugReport = require('../models/bug_report')
+  var express = require('express')
+  var router = express.Router()
+  var uuid = require('node-uuid')
+  var Grid = require('gridfs-stream')
+  var fs = require('fs')
+  var multer = require('multer')
+  var upload = multer({ dest: '/tmp/bug-reporter-uploads' })
+  var BugReport = require('../models/bug_report')
 
   Grid.mongo = global.config.db.mongo
   var gfs = Grid(global.config.db.connection.db)
@@ -27,11 +27,11 @@ module.exports = function (authenticate) {
    * @apiError {String} error Message explaining what went wrong.
    */
   router.post('/bug-report', upload.single('document'), function (req, res, next) {
-    var id = uuid.v4(),
-      file,
-      cb = function (error) {
+    var id = uuid.v4()
+    var file
         if (error)
           { return next(error) }
+    var cb = function (error) {
 
         res.send({ 'success': true })
         res.end()
@@ -40,7 +40,7 @@ module.exports = function (authenticate) {
       // Save file if it exists
     if (req.file) {
       file = id + '-' + req.file.originalname
-      writeStream = gfs.createWriteStream({
+      var writeStream = gfs.createWriteStream({
         filename: file
       })
       writeStream.on('close', function (file) {

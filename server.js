@@ -1,7 +1,7 @@
 module.exports = function () {
   var express = require('express')
-  path = require('path')
-  RateLimit = require('express-rate-limit')
+  var path = require('path')
+  var RateLimit = require('express-rate-limit')
 
   var app = express()
 
@@ -16,7 +16,7 @@ module.exports = function () {
   app.use('/api/', apiLimiter)
 
   // API
-  authenticate = require('./middlewares/api_auth.js')()
+  var authenticate = require('./middlewares/api_auth.js')()
   app.use('/api/v1', require('./controllers/api_breakpad')(authenticate))
   app.use('/api/v1', require('./controllers/api_bug_report')(authenticate))
   app.use('/api/v1', require('./controllers/api_receipt')(authenticate))
@@ -25,7 +25,7 @@ module.exports = function () {
   app.use(express.static(path.join(__dirname, 'public')))
 
   // Error handler
-  clientErrorHandler = require('./middlewares/client_error_handler.js')
+  var clientErrorHandler = require('./middlewares/client_error_handler.js')
   app.use(clientErrorHandler)
 
   // Return not found on everything else

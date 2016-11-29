@@ -1,7 +1,7 @@
 module.exports = function () {
-  var passport = require('passport'),
-    Strategy = require('passport-http-bearer').Strategy,
-    Admin = require('../models/admin')
+  var passport = require('passport')
+  var Strategy = require('passport-http-bearer').Strategy
+  var Admin = require('../models/admin')
 
   passport.use(new Strategy(
     function (token, cb) {

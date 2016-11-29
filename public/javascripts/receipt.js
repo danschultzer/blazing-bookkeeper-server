@@ -2,8 +2,8 @@
   var files = []
 
   function init () {
-    var fileListComponent = Vue.extend({}),
-      mainView = new Vue({
+    var fileListComponent = Vue.extend({})
+    var mainView = new Vue({
         el: '#receiptWindow',
         data: {
           files: files,
@@ -29,9 +29,9 @@
         if (form.querySelector('[name="document"]').files[0]) {
           form.setAttribute('data-submitting', 'true')
 
-          var formData = new FormData(form),
-            request = new XMLHttpRequest(),
-            file = {
+          var formData = new FormData(form)
+          var request = new XMLHttpRequest()
+          var file = {
               index: 0,
               file: {
                 name: form.querySelector('[name="document"]').files[0].name
@@ -53,7 +53,7 @@
               file.progressBar = 100
               form.removeAttribute('data-submitting')
               try {
-                json = JSON.parse(request.responseText)
+              var json = JSON.parse(request.responseText)
                 if (json.success) {
                   file.result.parsed = json.results
                 } else {

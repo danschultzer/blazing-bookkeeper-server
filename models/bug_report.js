@@ -1,6 +1,6 @@
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  notify = require('../helpers/send_report_to_admins')
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema
+var notify = require('../helpers/send_report_to_admins')
 
 var bugReportSchema = new Schema({
   product: { type: String, required: true },

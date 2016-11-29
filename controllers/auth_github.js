@@ -1,10 +1,10 @@
 module.exports = function () {
-  var express = require('express'),
-    router = express.Router(),
-    passport = require('passport'),
-    Strategy = require('passport-github2'),
-    Admin = require('../models/admin'),
-    request = require('request')
+  var express = require('express')
+  var router = express.Router()
+  var passport = require('passport')
+  var Strategy = require('passport-github2')
+  var Admin = require('../models/admin')
+  var request = require('request')
 
   router.use(passport.initialize())
   passport.serializeUser(function (admin, done) {
