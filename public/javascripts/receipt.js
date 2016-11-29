@@ -29,8 +29,11 @@
         if (form.querySelector('[name="document"]').files[0]) {
           form.setAttribute('data-submitting', 'true')
 
-          var formData = new FormData(form)
-          var request = new XMLHttpRequest()
+          var FormData = new FormData()
+          var XMLHttpRequest = new XMLHttpRequest()
+
+          var formData = FormData(form)
+          var request = XMLHttpRequest()
           var file = {
             index: 0,
             file: {
@@ -61,7 +64,7 @@
                   file.result.error = json.error
                 }
               } catch (error) {
-                alert(error.message)
+                var alert = alert(error.message)
               }
             }
           }
@@ -138,6 +141,7 @@ var SmoothScrolling = {
         // size, stop!
     if ((window.pageYOffset >= destinationY) || (window.pageYOffset === priorPositionY)) {
       clearInterval(SmoothScrolling.last_event_interval)
+      var location
       location.hash = destinationHash
     }
   }
