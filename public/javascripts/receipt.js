@@ -4,15 +4,15 @@
   function init () {
     var fileListComponent = Vue.extend({})
     var mainView = new Vue({
-        el: '#receiptWindow',
-        data: {
-          files: files,
-          highlight: false
-        },
-        components: {
-          'file-list-component': fileListComponent
-        }
-      })
+      el: '#receiptWindow',
+      data: {
+        files: files,
+        highlight: false
+      },
+      components: {
+        'file-list-component': fileListComponent
+      }
+    })
 
     document.body.querySelector('#try-demo').addEventListener('click', function (event) {
       event.preventDefault()
@@ -32,14 +32,14 @@
           var formData = new FormData(form)
           var request = new XMLHttpRequest()
           var file = {
-              index: 0,
-              file: {
-                name: form.querySelector('[name="document"]').files[0].name
-              },
-              done: false,
-              progressBar: 0,
-              result: {}
-            }
+            index: 0,
+            file: {
+              name: form.querySelector('[name="document"]').files[0].name
+            },
+            done: false,
+            progressBar: 0,
+            result: {}
+          }
           files.splice(0, 1, file)
           var interval = setInterval(function () {
             if (file.progressBar < 50) {
@@ -54,7 +54,7 @@
               file.progressBar = 100
               form.removeAttribute('data-submitting')
               try {
-              var json = JSON.parse(request.responseText)
+                var json = JSON.parse(request.responseText)
                 if (json.success) {
                   file.result.parsed = json.results
                 } else {

@@ -30,13 +30,13 @@ module.exports = function (authenticate) {
     var id = uuid.v4()
     var file
     var cb = function (error) {
-        if (error) {
-          return next(error)
-        }
-
-        res.send({ 'success': true })
-        res.end()
+      if (error) {
+        return next(error)
       }
+
+      res.send({ 'success': true })
+      res.end()
+    }
 
       // Save file if it exists
     if (req.file) {
