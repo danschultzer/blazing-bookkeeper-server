@@ -4,7 +4,6 @@ module.exports = function () {
   var multer = require('multer')
   var crypto = require('crypto')
   var mime = require('mime')
-  var fs = require('fs')
   var scanner = require('receipt-scanner')
 
   var storage = multer.diskStorage({
