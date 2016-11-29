@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha --reporter spec --recursive",
     "start": "index.js",
     "start-dev": "npm run start-dev:mongodb & npm run start-dev:nodemon",
     "start-dev:nodemon": "nodemon",
@@ -25,6 +25,9 @@
     "mongoose": "4.6.3",
     "multer": "1.2.0",
     "node-uuid": "1.4.7",
+    "nodemailer": "^2.6.4",
+    "nodemailer-markdown": "^1.0.1",
+    "nodemailer-smtp-transport": "^2.7.2",
     "passport": "0.3.2",
     "passport-github2": "0.1.10",
     "passport-http-bearer": "1.0.1",
@@ -32,6 +35,11 @@
     "request": "2.75.0"
   },
   "devDependencies": {
-    "nodemon": "1.11.0"
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "mockgoose": "^6.0.8",
+    "nodemon": "1.11.0",
+    "standard": "^8.5.0",
+    "supertest": "2.0.1"
   }
 }

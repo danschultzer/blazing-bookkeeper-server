@@ -1,0 +1,16 @@
+sudo: required
+dist: trusty
+
+language: node_js
+node_js:
+  - "stable"
+
+addons:
+  apt:
+    packages:
+      # install dependencies
+      - tesseract-ocr
+      - libopencv-dev
+
+script:
+  - npm test

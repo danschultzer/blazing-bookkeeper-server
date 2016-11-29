@@ -1,4 +1,4 @@
-module.exports = function (db, authenticate) {
+module.exports = function (authenticate) {
   var express = require('express'),
     router = express.Router(),
     uuid = require('node-uuid'),
@@ -8,8 +8,8 @@ module.exports = function (db, authenticate) {
     upload = multer({ dest: '/tmp/crash-reporter-uploads' }),
     CrashReport = require('../models/crash_report');
 
-  Grid.mongo = db.mongo;
-  var gfs = Grid(db.connection.db);
+  Grid.mongo = global.config.db.mongo;
+  var gfs = Grid(global.config.db.connection.db);
 
   /**
    * @api {post} /crash-report Create crash report
@@ -68,6 +68,23 @@ module.exports = function (db, authenticate) {
         "list": list,
         "count": list.length
       });
+      res.end();
+    });
+  });
+
+  /**
+   * @api {get} /crash-report/:id Return crash report
+   * @apiName GetCrashReport
+   * @apiGroup CrashReport
+   *
+   * @apiSuccess {Id}
+   */
+  router.get('/crash-report/:id', authenticate, function(req, res, next) {
+    CrashReport.findOne({ _id: req.params.id }, function(error, report) {
+      if (error)
+        return next(error);
+
+      res.send(report);
       res.end();
     });
   });

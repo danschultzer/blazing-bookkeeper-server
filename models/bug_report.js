@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    notify = require('../helpers/send_report_to_admins');
+
 
 var bugReportSchema = new Schema({
     product   : { type: String, required: true },
@@ -27,6 +29,10 @@ bugReportSchema.pre('save', function(next) {
     this.created_at = currentDate;
 
   next();
+});
+
+bugReportSchema.post('save', function(report) {
+  notify('Bug');
 });
 
 var BugReport = mongoose.model('BugReport', bugReportSchema);
