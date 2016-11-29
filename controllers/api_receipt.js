@@ -6,24 +6,24 @@ module.exports = function () {
   var mime = require('mime')
   var scanner = require('receipt-scanner')
 
-      destination: '/tmp/receipt-uploads',
-      filename: function (req, file, cb) {
-        crypto.pseudoRandomBytes(16, function (err, raw) {
-          cb(null, err ? undefined : (raw.toString('hex') + '.' + mime.extension(file.mimetype)))
-        })
-      }
-      storage: storage,
-      fileFilter: function (req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|jpeg|png|pdf|tiff|bmp)$/)) {
-          return cb(new Error('Only image or pdf files are allowed!'))
-        }
-        cb(null, true)
   var storage
   storage = multer.diskStorage({
+    destination: '/tmp/receipt-uploads',
+    filename: function (req, file, cb) {
+      crypto.pseudoRandomBytes(16, function (err, raw) {
+        cb(null, err ? undefined : (raw.toString('hex') + '.' + mime.extension(file.mimetype)))
+      })
+    }
   })
   var upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+      if (!file.originalname.match(/\.(jpg|jpeg|png|pdf|tiff|bmp)$/)) {
+        return cb(new Error('Only image or pdf files are allowed!'))
       }
-    })
+      cb(null, true)
+    }
+  })
 
   /**
    * @api {post} /receipt Extract information from uploaded file

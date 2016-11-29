@@ -24,18 +24,18 @@ module.exports = function (authenticate) {
    */
   router.post('/crash-report', upload.single('upload_file_minidump'), function (req, res, next) {
     var id = uuid.v4()
-        filename: id
-        if (error) {
-          return next(error)
-        }
-
-        res.send({ 'success': true })
-        res.end()
     var writeStream
     writeStream = gfs.createWriteStream({
+      filename: id
     })
     var cb = function (error) {
+      if (error) {
+        return next(error)
       }
+
+      res.send({ 'success': true })
+      res.end()
+    }
 
     fs.createReadStream(req.file.path).pipe(writeStream)
 
