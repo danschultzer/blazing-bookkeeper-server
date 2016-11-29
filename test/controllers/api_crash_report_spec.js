@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-var app = require('../spec_controller_helper')
+require('../spec_controller_helper')
 var assert = require('chai').assert
 var CrashReport = require('../../models/crash_report')
 var request = require('supertest')
