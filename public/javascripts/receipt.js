@@ -42,10 +42,11 @@
             }
           files.splice(0, 1, file)
           var interval = setInterval(function () {
-            if (file.progressBar < 50)
-              { file.progressBar += Math.random() * (5 - 0) + 0 }
-            else
-              { clearInterval(interval) }
+            if (file.progressBar < 50) {
+              file.progressBar += Math.random() * (5 - 0) + 0
+            } else {
+              clearInterval(interval)
+            }
           }, 200)
           request.onreadystatechange = function () {
             if (request.readyState === request.DONE) {
@@ -95,8 +96,9 @@ var SmoothScrolling = {
     var links = document.getElementsByTagName('a')
     for (var i = 0; i < links.length; i++) {
       var link = links[i]
-      if (link.href && link.href.indexOf('#') > -1)
-              { link.addEventListener('click', SmoothScrolling.eventHandler) }
+      if (link.href && link.href.indexOf('#') > -1) {
+        link.addEventListener('click', SmoothScrolling.eventHandler)
+      }
     }
   },
 
@@ -104,8 +106,9 @@ var SmoothScrolling = {
     var destination_hash = event.target.hash.substr(1)
     var destination_element = document.getElementById(destination_hash)
 
-    if (!destination_element)
-          { return }
+    if (!destination_element) {
+      return
+    }
 
     clearInterval(SmoothScrolling.last_event_interval)
 
@@ -125,8 +128,9 @@ var SmoothScrolling = {
     var prior_position_y = window.pageYOffset
 
         // Don't scroll too far
-    if ((prior_position_y + distance) > destination_y)
-          { distance = (prior_position_y + distance) - destination_y }
+    if ((prior_position_y + distance) > destination_y) {
+      distance = (prior_position_y + distance) - destination_y
+    }
 
     window.scrollTo(0, prior_position_y + distance)
 

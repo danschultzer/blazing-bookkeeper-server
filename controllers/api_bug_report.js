@@ -29,9 +29,10 @@ module.exports = function (authenticate) {
   router.post('/bug-report', upload.single('document'), function (req, res, next) {
     var id = uuid.v4()
     var file
-        if (error)
-          { return next(error) }
     var cb = function (error) {
+        if (error) {
+          return next(error)
+        }
 
         res.send({ 'success': true })
         res.end()
@@ -65,8 +66,9 @@ module.exports = function (authenticate) {
      */
   router.get('/bug-reports', authenticate, function (req, res, next) {
     BugReport.find(function (error, reports) {
-      if (error)
-          { return next(error) }
+      if (error) {
+        return next(error)
+      }
 
       var list = reports.reduce(function (list, item) {
         list[item._id] = item
@@ -90,8 +92,9 @@ module.exports = function (authenticate) {
    */
   router.get('/bug-report/:id', authenticate, function (req, res, next) {
     BugReport.findOne({ _id: req.params.id }, function (error, report) {
-      if (error)
-        { return next(error) }
+      if (error) {
+        return next(error)
+      }
 
       res.send(report)
       res.end()
@@ -107,8 +110,9 @@ module.exports = function (authenticate) {
    */
   router.get('/bug-report/:id/file', authenticate, function (req, res, next) {
     BugReport.findOne({ _id: req.params.id }, function (error, report) {
-      if (error)
-        { return next(error) }
+      if (error) {
+        return next(error)
+      }
 
       var readStream = gfs.createReadStream({
         filename: report.file

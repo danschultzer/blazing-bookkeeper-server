@@ -23,12 +23,14 @@ module.exports = function () {
   },
       function (access_token, refresh_token, profile, cb) {
         getEmail(access_token, function (error, email) {
-          if (error)
-            { return cb(error) }
+          if (error) {
+            return cb(error)
+          }
 
           hasRepo(profile, function (error) {
-            if (error)
-              { return cb(error) }
+            if (error) {
+              return cb(error)
+            }
 
             var options = {
               github_id: profile.id,
@@ -36,8 +38,9 @@ module.exports = function () {
               email: email
             }
             Admin.findOneAndUpdate({ github_id: profile.id }, options, { new: true }, function (error, admin) {
-              if (error)
-                { return cb(error) }
+              if (error) {
+                return cb(error)
+              }
 
               if (!admin) {
                 admin = Admin(options)
@@ -69,11 +72,13 @@ module.exports = function () {
       json: true
     }
     request.get(options, function (error, response, json) {
-      if (error)
-          { return cb(error) }
+      if (error) {
+        return cb(error)
+      }
 
-      if (response.statusCode != 200)
-          { return cb(new Error('Invalid response')) }
+      if (response.statusCode != 200) {
+        return cb(new Error('Invalid response'))
+      }
 
       var isMember = false
 
@@ -84,8 +89,9 @@ module.exports = function () {
         }
       }
 
-      if (!isMember)
-          { return cb(new Error('Not contributor for danschultzer/blazing-bookkeeper')) }
+      if (!isMember) {
+        return cb(new Error('Not contributor for danschultzer/blazing-bookkeeper'))
+      }
 
       cb()
     })
@@ -102,18 +108,21 @@ module.exports = function () {
     }
 
     request(options, function (error, response, json) {
-      if (error)
-        { return cb(error) }
+      if (error) {
+        return cb(error)
+      }
 
-      if (response.statusCode != 200)
-        { return cb(new Error('Invalid response')) }
+      if (response.statusCode != 200) {
+        return cb(new Error('Invalid response'))
+      }
 
       var emails = json.filter(function (email) {
         return email.verified && email.primary
       })
 
-      if (!emails.length)
-        { return cb(new Error('No verified primary email found for user')) }
+      if (!emails.length) {
+        return cb(new Error('No verified primary email found for user'))
+      }
 
       cb(error, emails[0].email)
     })

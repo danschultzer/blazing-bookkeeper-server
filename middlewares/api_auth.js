@@ -6,11 +6,13 @@ module.exports = function () {
   passport.use(new Strategy(
     function (token, cb) {
       Admin.findOne({ access_token: token }, function (error, admin) {
-        if (error)
-          { return cb(error) }
+        if (error) {
+          return cb(error)
+        }
 
-        if (!admin)
-          { return cb(null, false) }
+        if (!admin) {
+          return cb(null, false)
+        }
 
         return cb(null, admin, { scope: 'all' })
       })
