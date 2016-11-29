@@ -6,7 +6,6 @@ module.exports = function () {
   var mime = require('mime')
   var scanner = require('receipt-scanner')
 
-  var storage = multer.diskStorage({
       destination: '/tmp/receipt-uploads',
       filename: function (req, file, cb) {
         crypto.pseudoRandomBytes(16, function (err, raw) {
@@ -21,6 +20,8 @@ module.exports = function () {
           return cb(new Error('Only image or pdf files are allowed!'))
         }
         cb(null, true)
+  var storage
+  storage = multer.diskStorage({
       }
     })
 
