@@ -12,8 +12,6 @@ module.exports = function () {
           cb(null, err ? undefined : (raw.toString('hex') + '.' + mime.extension(file.mimetype)))
         })
       }
-    }),
-    upload = multer({
       storage: storage,
       fileFilter: function (req, file, cb) {
         if (!file.originalname.match(/\.(jpg|jpeg|png|pdf|tiff|bmp)$/)) {
@@ -22,6 +20,8 @@ module.exports = function () {
         cb(null, true)
   var storage
   storage = multer.diskStorage({
+  })
+  var upload = multer({
       }
     })
 
