@@ -90,7 +90,7 @@
 
 var SmoothScrolling = {
   last_event_interval: false,
-  tween_distance: 30,
+  tweenDistance: 30,
 
   configureEventHandlers: function () {
     var links = document.getElementsByTagName('a')
@@ -103,42 +103,42 @@ var SmoothScrolling = {
   },
 
   eventHandler: function (event) {
-    var destination_hash = event.target.hash.substr(1)
-    var destination_element = document.getElementById(destination_hash)
+    var destinationHash = event.target.hash.substr(1)
+    var destinationElement = document.getElementById(destinationHash)
 
-    if (!destination_element) {
+    if (!destinationElement) {
       return
     }
 
     clearInterval(SmoothScrolling.last_event_interval)
 
-    var destination_y = destination_element.getBoundingClientRect().top + window.pageYOffset
-    var tween_distance = SmoothScrolling.tween_distance
+    var destinationY = destinationElement.getBoundingClientRect().top + window.pageYOffset
+    var tweenDistance = SmoothScrolling.tweenDistance
     var interval = 'SmoothScrolling.scrollViewport(' +
-                      tween_distance + ', ' +
-                      destination_y + ', ' +
-                      '\'' + destination_hash + '\')'
+                      tweenDistance + ', ' +
+                      destinationY + ', ' +
+                      '\'' + destinationHash + '\')'
     SmoothScrolling.last_event_interval = setInterval(interval, 10)
 
     event.preventDefault()
     event.stopPropagation()
   },
 
-  scrollViewport: function (distance, destination_y, destination_hash) {
-    var prior_position_y = window.pageYOffset
+  scrollViewport: function (distance, destinationY, destinationHash) {
+    var priorPositionY = window.pageYOffset
 
         // Don't scroll too far
-    if ((prior_position_y + distance) > destination_y) {
-      distance = (prior_position_y + distance) - destination_y
+    if ((priorPositionY + distance) > destinationY) {
+      distance = (priorPositionY + distance) - destinationY
     }
 
-    window.scrollTo(0, prior_position_y + distance)
+    window.scrollTo(0, priorPositionY + distance)
 
         // If we're there or can't get any closer because of the viewport's
         // size, stop!
-    if ((window.pageYOffset >= destination_y) || (window.pageYOffset === prior_position_y)) {
+    if ((window.pageYOffset >= destinationY) || (window.pageYOffset === priorPositionY)) {
       clearInterval(SmoothScrolling.last_event_interval)
-      location.hash = destination_hash
+      location.hash = destinationHash
     }
   }
 }

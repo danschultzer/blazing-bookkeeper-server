@@ -21,8 +21,8 @@ module.exports = function () {
     clientSecret: process.env.GITHUB_CLIENT_SECRET || 'clientSecret',
     callbackURL: process.env.GITHUB_CALLBACK_URL || 'http://localhost:5000/auth/github/callback'
   },
-      function (access_token, refresh_token, profile, cb) {
-        getEmail(access_token, function (error, email) {
+      function (accessToken, refreshToken, profile, cb) {
+        getEmail(accessToken, function (error, email) {
           if (error) {
             return cb(error)
           }
@@ -34,7 +34,7 @@ module.exports = function () {
 
             var options = {
               github_id: profile.id,
-              access_token: access_token,
+              access_token: accessToken,
               email: email
             }
             Admin.findOneAndUpdate({ github_id: profile.id }, options, { new: true }, function (error, admin) {
@@ -59,7 +59,7 @@ module.exports = function () {
   router.get('/auth/github/callback',
     passport.authenticate('github'),
     function (req, res) {
-      res.send({ token: req.user.access_token })
+      res.send({ token: req.user.accessToken })
       res.close()
     })
 
@@ -97,12 +97,12 @@ module.exports = function () {
     })
   }
 
-  function getEmail (access_token, cb) {
+  function getEmail (accessToken, cb) {
     var options = {
       url: 'https://api.github.com/user/emails',
       headers: {
         'User-Agent': 'Blazing Bookkeeper Server',
-        'Authorization': 'token ' + access_token
+        'Authorization': 'token ' + accessToken
       },
       json: true
     }

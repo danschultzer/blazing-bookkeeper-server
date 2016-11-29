@@ -1,7 +1,7 @@
 module.exports = exports = function (dbname) {
   var config = require('./config.json')
-  var node_env = process.env.NODE_ENV || 'production'
-  config.env = node_env
+  var nodeEnv = process.env.NODE_ENV || 'production'
+  config.env = nodeEnv
   config.smtpTransporter = require('./transporter')
   config.db = require('./db')(dbname || config.dbname, 'localhost')
 
