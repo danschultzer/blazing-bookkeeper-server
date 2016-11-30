@@ -26,7 +26,7 @@ module.exports = function (authenticate) {
     var id = uuid.v4()
     var writeStream = gfs.createWriteStream({ filename: id })
     var cb = function (error) {
-      if (error) { return next(error) }
+      if (error) return next(error)
 
       res.send({ 'success': true })
       res.end()
@@ -34,9 +34,13 @@ module.exports = function (authenticate) {
 
     fs.createReadStream(req.file.path).pipe(writeStream)
 
-    writeStream.on('close', function (file) { saveReport(req, file, cb) })
+    writeStream.on('close', function (file) {
+      saveReport(req, file, cb)
+    })
 
-    writeStream.on('error', function (error) { cb(error) })
+    writeStream.on('error', function (error) {
+      cb(error)
+    })
   })
 
   /**
@@ -49,7 +53,7 @@ module.exports = function (authenticate) {
    */
   router.get('/crash-reports', authenticate, function (req, res, next) {
     CrashReport.find(function (error, reports) {
-      if (error) { return next(error) }
+      if (error) return next(error)
 
       var list = reports.reduce(function (list, item) {
         list[item._id] = item
@@ -73,7 +77,7 @@ module.exports = function (authenticate) {
    */
   router.get('/crash-report/:id', authenticate, function (req, res, next) {
     CrashReport.findOne({ _id: req.params.id }, function (error, report) {
-      if (error) { return next(error) }
+      if (error) return next(error)
 
       res.send(report)
       res.end()
@@ -89,11 +93,13 @@ module.exports = function (authenticate) {
    */
   router.get('/crash-report/:id/file', authenticate, function (req, res, next) {
     CrashReport.findOne({ _id: req.params.id }, function (error, report) {
-      if (error) { return next(error) }
+      if (error) return next(error)
 
       var readStream = gfs.createReadStream({ filename: report.file })
 
-      readStream.on('error', function (error) { next(error) })
+      readStream.on('error', function (error) {
+        next(error)
+      })
 
       readStream.pipe(res)
     })

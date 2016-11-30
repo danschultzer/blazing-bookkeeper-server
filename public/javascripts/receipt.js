@@ -106,7 +106,7 @@ var SmoothScrolling = {
     var destinationHash = event.target.hash.substr(1)
     var destinationElement = document.getElementById(destinationHash)
 
-    if (!destinationElement) { return }
+    if (!destinationElement) return
 
     clearInterval(SmoothScrolling.last_event_interval)
 

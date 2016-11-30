@@ -8,14 +8,14 @@ module.exports = function (type) {
 
   return new Promise(function (resolve, reject) {
     Admin.find(function (error, admins) {
-      if (error) { return reject(error) }
+      if (error) return reject(error)
 
       emails = admins.map(function (admin) { return admin.email })
       var classObject = type === 'Bug' ? BugReport : CrashReport
       var limit = {}
 
       classObject.find(limit, function (error, reports) {
-        if (error) { return reject(error) }
+        if (error) return reject(error)
         resolve(reports)
       })
     })
@@ -41,7 +41,7 @@ module.exports = function (type) {
 
     transporter.use('compile', markdown())
     transporter.sendMail(opts, function (error, info) {
-      if (error) { return console.error(error) }
+      if (error) return console.error(error)
       console.log('Message sent: ' + info.response)
     })
 

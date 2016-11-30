@@ -41,7 +41,7 @@ module.exports = function () {
 
     scanner(req.file.path)
       .parse(function (error, results) {
-        if (error) { return next(error) }
+        if (error) return next(error)
 
         res.send({ 'success': true, 'results': results })
         res.end()
