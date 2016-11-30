@@ -7,14 +7,9 @@ module.exports = function () {
   var request = require('request')
 
   router.use(passport.initialize())
-  passport.serializeUser(function (admin, done) {
-    done(null, admin._id)
-  })
+  passport.serializeUser(function (admin, done) { done(null, admin._id) })
   passport.deserializeUser(function (id, done) {
-    var User
-    User.findById(id, function (err, admin) {
-      done(err, admin)
-    })
+    Admin.findById(id, function (err, admin) { done(err, admin) })
   })
 
   passport.use(new Strategy({
@@ -24,14 +19,10 @@ module.exports = function () {
   },
       function (accessToken, refreshToken, profile, cb) {
         getEmail(accessToken, function (error, email) {
-          if (error) {
-            return cb(error)
-          }
+          if (error) { return cb(error) }
 
           hasRepo(profile, function (error) {
-            if (error) {
-              return cb(error)
-            }
+            if (error) { return cb(error) }
 
             var options = {
               github_id: profile.id,
@@ -39,9 +30,7 @@ module.exports = function () {
               email: email
             }
             Admin.findOneAndUpdate({ github_id: profile.id }, options, { new: true }, function (error, admin) {
-              if (error) {
-                return cb(error)
-              }
+              if (error) { return cb(error) }
 
               if (!admin) {
                 admin = Admin(options)
@@ -73,9 +62,7 @@ module.exports = function () {
       json: true
     }
     request.get(options, function (error, response, json) {
-      if (error) {
-        return cb(error)
-      }
+      if (error) { return cb(error) }
 
       if (response.statusCode !== 200) {
         return cb(new Error('Invalid response'))
@@ -109,9 +96,7 @@ module.exports = function () {
     }
 
     request(options, function (error, response, json) {
-      if (error) {
-        return cb(error)
-      }
+      if (error) { return cb(error) }
 
       if (response.statusCode !== 200) {
         return cb(new Error('Invalid response'))

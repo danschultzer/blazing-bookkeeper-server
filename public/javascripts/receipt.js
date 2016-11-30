@@ -2,8 +2,8 @@
   var files = []
 
   function init () {
-    var fileListComponent = Vue.extend({})
-    var mainView = new Vue({
+    var fileListComponent = Vue.extend({}) // eslint-disable-line no-undef
+    new Vue({ // eslint-disable-line no-new, no-undef
       el: '#receiptWindow',
       data: {
         files: files,
@@ -29,11 +29,8 @@
         if (form.querySelector('[name="document"]').files[0]) {
           form.setAttribute('data-submitting', 'true')
 
-          var FormData = new FormData()
-          var XMLHttpRequest = new XMLHttpRequest()
-
-          var formData = FormData(form)
-          var request = XMLHttpRequest()
+          var formData = new window.FormData(form)
+          var request = new window.XMLHttpRequest()
           var file = {
             index: 0,
             file: {
@@ -93,7 +90,7 @@
 
 var SmoothScrolling = {
   last_event_interval: false,
-  tweenDistance: 30,
+  tween_distance: 30,
 
   configureEventHandlers: function () {
     var links = document.getElementsByTagName('a')
@@ -109,14 +106,12 @@ var SmoothScrolling = {
     var destinationHash = event.target.hash.substr(1)
     var destinationElement = document.getElementById(destinationHash)
 
-    if (!destinationElement) {
-      return
-    }
+    if (!destinationElement) { return }
 
     clearInterval(SmoothScrolling.last_event_interval)
 
-    var destinationY = destinationElement.getBoundingClientRect().top + window.pageYOffset
-    var tweenDistance = SmoothScrolling.tweenDistance
+    var destinationY = destinationElement.getBoundingClientRect().top + window.page_y_offset
+    var tweenDistance = SmoothScrolling.tween_distance
     var interval = 'SmoothScrolling.scrollViewport(' +
                       tweenDistance + ', ' +
                       destinationY + ', ' +
@@ -128,7 +123,7 @@ var SmoothScrolling = {
   },
 
   scrollViewport: function (distance, destinationY, destinationHash) {
-    var priorPositionY = window.pageYOffset
+    var priorPositionY = window.page_y_offset
 
         // Don't scroll too far
     if ((priorPositionY + distance) > destinationY) {
@@ -139,10 +134,9 @@ var SmoothScrolling = {
 
         // If we're there or can't get any closer because of the viewport's
         // size, stop!
-    if ((window.pageYOffset >= destinationY) || (window.pageYOffset === priorPositionY)) {
+    if ((window.page_y_offset >= destinationY) || (window.page_y_offset === priorPositionY)) {
       clearInterval(SmoothScrolling.last_event_interval)
-      var location
-      location.hash = destinationHash
+      window.location.hash = destinationHash
     }
   }
 }

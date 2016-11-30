@@ -6,8 +6,7 @@ module.exports = function () {
   var mime = require('mime')
   var scanner = require('receipt-scanner')
 
-  var storage
-  storage = multer.diskStorage({
+  var storage = multer.diskStorage({
     destination: '/tmp/receipt-uploads',
     filename: function (req, file, cb) {
       crypto.pseudoRandomBytes(16, function (err, raw) {
@@ -40,13 +39,9 @@ module.exports = function () {
       throw new Error('Missing file attachment')
     }
 
-    console.log(req.file.path)
-
     scanner(req.file.path)
       .parse(function (error, results) {
-        if (error) {
-          return next(error)
-        }
+        if (error) { return next(error) }
 
         res.send({ 'success': true, 'results': results })
         res.end()
