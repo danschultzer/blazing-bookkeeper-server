@@ -1,15 +1,15 @@
 module.exports = function (authenticate) {
-  var express = require('express'),
-    router = express.Router(),
-    uuid = require('node-uuid'),
-    Grid = require('gridfs-stream'),
-    fs = require('fs'),
-    multer = require('multer'),
-    upload = multer({ dest: '/tmp/bug-reporter-uploads' }),
-    BugReport = require('../models/bug_report');
+  var express = require('express')
+  var router = express.Router()
+  var uuid = require('node-uuid')
+  var Grid = require('gridfs-stream')
+  var fs = require('fs')
+  var multer = require('multer')
+  var BugReport = require('../models/bug_report')
 
-  Grid.mongo = global.config.db.mongo;
-  var gfs = Grid(global.config.db.connection.db);
+  Grid.mongo = global.config.db.mongo
+  var gfs = Grid(global.config.db.connection.db)
+  var upload = multer({ dest: '/tmp/bug-reporter-uploads' })
 
   /**
    * @api {post} /bug-report Create bug report
@@ -26,34 +26,34 @@ module.exports = function (authenticate) {
    * @apiSuccess {Boolean} success
    * @apiError {String} error Message explaining what went wrong.
    */
-  router.post('/bug-report', upload.single('document'), function(req, res, next) {
-    var id = uuid.v4(),
-      file,
-      cb = function(error) {
-        if (error)
-          return next(error);
+  router.post('/bug-report', upload.single('document'), function (req, res, next) {
+    var id = uuid.v4()
+    var file
+    var cb = function (error) {
+      if (error) return next(error)
 
-        res.send({ "success": true });
-        res.end();
-      };
+      res.send({ 'success': true })
+      res.end()
+    }
 
       // Save file if it exists
-      if (req.file) {
-        file = id + '-' + req.file.originalname;
-        writeStream = gfs.createWriteStream({
-          filename: file
-        });
-        writeStream.on("close", function(file) {
-          saveReport(req, file, cb);
-        });
-        writeStream.on("error", function(error) {
-          cb(error);
-        });
-        fs.createReadStream(req.file.path).pipe(writeStream);
-      } else {
-        saveReport(req, {}, cb);
-      }
-  });
+    if (req.file) {
+      file = id + '-' + req.file.originalname
+      var writeStream = gfs.createWriteStream({ filename: file })
+
+      fs.createReadStream(req.file.path).pipe(writeStream)
+
+      writeStream.on('close', function (file) {
+        saveReport(req, file, cb)
+      })
+
+      writeStream.on('error', function (error) {
+        cb(error)
+      })
+    } else {
+      saveReport(req, {}, cb)
+    }
+  })
 
     /**
      * @api {get} /bug-reports List bug reports
@@ -63,23 +63,22 @@ module.exports = function (authenticate) {
      * @apiSuccess {Array} list
      * @apiSuccess {Integer} count
      */
-    router.get('/bug-reports', authenticate, function(req, res, next) {
-      BugReport.find(function(error, reports) {
-        if (error)
-          return next(error);
+  router.get('/bug-reports', authenticate, function (req, res, next) {
+    BugReport.find(function (error, reports) {
+      if (error) return next(error)
 
-        var list = reports.reduce(function(list, item) {
-          list[item._id] = item;
-          return list;
-        }, {});
+      var list = reports.reduce(function (list, item) {
+        list[item._id] = item
+        return list
+      }, {})
 
-        res.send({
-          "list": list,
-          "count": list.length
-        });
-        res.end();
-      });
-    });
+      res.send({
+        'list': list,
+        'count': list.length
+      })
+      res.end()
+    })
+  })
 
   /**
    * @api {get} /bug-report/:id Return document
@@ -88,15 +87,14 @@ module.exports = function (authenticate) {
    *
    * @apiSuccess {Id}
    */
-  router.get('/bug-report/:id', authenticate, function(req, res, next) {
-    BugReport.findOne({ _id: req.params.id }, function(error, report) {
-      if (error)
-        return next(error);
+  router.get('/bug-report/:id', authenticate, function (req, res, next) {
+    BugReport.findOne({ _id: req.params.id }, function (error, report) {
+      if (error) return next(error)
 
-      res.send(report);
-      res.end();
-    });
-  });
+      res.send(report)
+      res.end()
+    })
+  })
 
   /**
    * @api {get} /bug-report/:id/file Return document
@@ -105,24 +103,21 @@ module.exports = function (authenticate) {
    *
    * @apiSuccess {File}
    */
-  router.get('/bug-report/:id/file', authenticate, function(req, res, next) {
-    BugReport.findOne({ _id: req.params.id }, function(error, report) {
-      if (error)
-        return next(error);
+  router.get('/bug-report/:id/file', authenticate, function (req, res, next) {
+    BugReport.findOne({ _id: req.params.id }, function (error, report) {
+      if (error) return next(error)
 
-      var readStream = gfs.createReadStream({
-        filename: report.file
-      });
+      var readStream = gfs.createReadStream({ filename: report.file })
 
       readStream.on('error', function (error) {
-        next(error);
-      });
+        next(error)
+      })
 
-      readStream.pipe(res);
-    });
-  });
+      readStream.pipe(res)
+    })
+  })
 
-  function saveReport(req, file, cb) {
+  function saveReport (req, file, cb) {
     var newReport = BugReport({
       sender: {
         ua: req.headers['user-agent'] || null,
@@ -134,28 +129,28 @@ module.exports = function (authenticate) {
       commments: req.body.comments,
       report: req.body.report_json,
       file: file.filename
-    });
+    })
 
-    newReport.save(function(error) {
+    newReport.save(function (error) {
       if (error) {
-        removeFile(file, function() {
-          cb(error);
-        });
+        removeFile(file, function () {
+          cb(error)
+        })
       } else {
-        cb();
+        cb()
       }
-    });
+    })
   }
 
-  function removeFile(file, cb) {
+  function removeFile (file, cb) {
     if (file) {
-      gfs.remove(file, function() {
-        cb();
-      });
+      gfs.remove(file, function () {
+        cb()
+      })
     } else {
-      cb();
+      cb()
     }
   }
 
-  return router;
-};
+  return router
+}
