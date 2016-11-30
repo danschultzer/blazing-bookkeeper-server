@@ -5,11 +5,11 @@ module.exports = function (authenticate) {
   var Grid = require('gridfs-stream')
   var fs = require('fs')
   var multer = require('multer')
-  var upload = multer({ dest: '/tmp/crash-reporter-uploads' })
   var CrashReport = require('../models/crash_report')
 
   Grid.mongo = global.config.db.mongo
   var gfs = Grid(global.config.db.connection.db)
+  var upload = multer({ dest: '/tmp/crash-reporter-uploads' })
 
   /**
    * @api {post} /crash-report Create crash report

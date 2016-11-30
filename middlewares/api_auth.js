@@ -8,9 +8,7 @@ module.exports = function () {
       Admin.findOne({ access_token: token }, function (error, admin) {
         if (error) return cb(error)
 
-        if (!admin) {
-          return cb(null, false)
-        }
+        if (!admin) return cb(null, false)
 
         return cb(null, admin, { scope: 'all' })
       })

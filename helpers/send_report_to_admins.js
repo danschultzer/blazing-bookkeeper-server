@@ -10,7 +10,9 @@ module.exports = function (type) {
     Admin.find(function (error, admins) {
       if (error) return reject(error)
 
-      emails = admins.map(function (admin) { return admin.email })
+      emails = admins.map(function (admin) {
+        return admin.email
+      })
       var classObject = type === 'Bug' ? BugReport : CrashReport
       var limit = {}
 

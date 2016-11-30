@@ -61,7 +61,7 @@
                   file.result.error = json.error
                 }
               } catch (error) {
-                var alert = alert(error.message)
+                window.alert(error.message)
               }
             }
           }

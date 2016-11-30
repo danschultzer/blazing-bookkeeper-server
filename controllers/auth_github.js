@@ -7,9 +7,13 @@ module.exports = function () {
   var request = require('request')
 
   router.use(passport.initialize())
-  passport.serializeUser(function (admin, done) { done(null, admin._id) })
+  passport.serializeUser(function (admin, done) {
+    done(null, admin._id)
+  })
   passport.deserializeUser(function (id, done) {
-    Admin.findById(id, function (err, admin) { done(err, admin) })
+    Admin.findById(id, function (err, admin) {
+      done(err, admin)
+    })
   })
 
   passport.use(new Strategy({
