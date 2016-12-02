@@ -1,6 +1,5 @@
 module.exports = function () {
   var express = require('express')
-  var path = require('path')
   var RateLimit = require('express-rate-limit')
 
   var app = express()
@@ -22,7 +21,7 @@ module.exports = function () {
   app.use('/api/v1', require('./controllers/api_receipt')(authenticate))
 
   // Static assets handling
-  app.use(express.static(path.join(__dirname, 'public')))
+  app.use(express.static('public'))
 
   // Error handler
   var clientErrorHandler = require('./middlewares/client_error_handler.js')
